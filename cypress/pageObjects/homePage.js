@@ -64,4 +64,17 @@ export class HomePage extends BasePage {
   static get reviewSend() {
     return cy.get("button[aria-label='Send the review']");
   }
+
+  static get cardOnPageMaxMenu() {
+    return cy.get(".mat-mdc-paginator-touch-target");
+  }
+
+  static get cardOnPageMaxCurrent() {
+    return cy.get(".mat-mdc-select-min-line");
+  }
+  
+  static get cardOnPageMaxOption() {
+    return cy.get("[role='option']");
+  }
+  
 }

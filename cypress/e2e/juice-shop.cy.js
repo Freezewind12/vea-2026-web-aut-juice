@@ -148,10 +148,17 @@ describe('Juice-shop scenarios', () => {
 
     it.only('Validate product card amount', () => {
       // Validate that the default amount of cards is 12
+      HomePage.cardOnPageMaxCurrent.contains("12");
       // Change items per page (at the bottom of page) to 24
+      HomePage.cardOnPageMaxMenu.click();
+      HomePage.cardOnPageMaxOption.contains("24").click();
       // Validate that the amount of cards is 24
+      HomePage.cardOnPageMaxCurrent.contains("24");
       // Change items per page (at the bottom of page) to 36
+      HomePage.cardOnPageMaxMenu.click();
+      HomePage.cardOnPageMaxOption.contains("36").click();
       // Validate that the amount of cards is 35
+      HomePage.cardOnPageMaxCurrent.contains("35");
     });
     
 
