@@ -1,6 +1,12 @@
+import { basketPage } from '../pageObjects/basektPage';
+import { deliveryMethodPage } from '../pageObjects/deliveryMethodPage';
 import { HomePage } from '../pageObjects/HomePage';
 import { LoginPage } from '../pageObjects/loginPage';
+import { orderCompeltionPage } from '../pageObjects/orderCompletionPage';
+import { orderSummaryPage } from '../pageObjects/orderSummaryPage';
+import { paymentOptionsPage } from '../pageObjects/paymentOptionsPage';
 import { registationPage } from '../pageObjects/registrationPage';
+import { selectAddressPage } from '../pageObjects/selectAddressPage';
 
 describe('Juice-shop scenarios', () => {
   context('Without auto login', () => {
@@ -146,7 +152,7 @@ describe('Juice-shop scenarios', () => {
       HomePage.reviewContent.contains("Tastes like metal");
     });
 
-    it.only('Validate product card amount', () => {
+    it('Validate product card amount', () => {
       // Validate that the default amount of cards is 12
       HomePage.cardOnPageMaxCurrent.contains("12");
       // Change items per page (at the bottom of page) to 24
@@ -157,31 +163,46 @@ describe('Juice-shop scenarios', () => {
       // Change items per page (at the bottom of page) to 36
       HomePage.cardOnPageMaxMenu.click();
       HomePage.cardOnPageMaxOption.contains("36").click();
-      // Validate that the amount of cards is 35
-      HomePage.cardOnPageMaxCurrent.contains("35");
+      // Validate that the amount of cards is 36
+      HomePage.cardOnPageMaxCurrent.contains("36");
     });
     
-
-    // Create scenario - Buy Girlie T-shirt
-    // Click on search icon
-    // Search for Girlie
-    // Add to basket "Girlie"
-    // Click on "Your Basket" button
-    // Create page object - BasketPage
-    // Click on "Checkout" button
-    // Create page object - SelectAddressPage
-    // Select address containing "United Fakedom"
-    // Click Continue button
-    // Create page object - DeliveryMethodPage
-    // Select delivery speed Standard Delivery
-    // Click Continue button
-    // Create page object - PaymentOptionsPage
-    // Select card that ends with "5678"
-    // Click Continue button
-    // Create page object - OrderSummaryPage
-    // Click on "Place your order and pay"
-    // Create page object - OrderCompletionPage
-    // Validate confirmation - "Thank you for your purchase!"
+    it.only('Buy Girlie T-shirt', () => {
+      // Click on search icon
+      HomePage.searchIcon.click();
+      // Search for Girlie
+      HomePage.searchInputField.type("Girlie{enter}");
+      // Add to basket "Girlie"
+      HomePage.addToBasketButton.click();
+      // Click on "Your Basket" button
+      HomePage.yourBasketButton.click();
+      // Create page object - BasketPage
+      // Click on "Checkout" button
+      basketPage.checkoutButton.click();
+      // Create page object - SelectAddressPage
+      // Select address containing "United Fakedom"
+      selectAddressPage.addressTable.contains("United Fakedom").click();
+      // Click Continue button
+      selectAddressPage.proceedButton.click();
+      // Create page object - DeliveryMethodPage
+      // Select delivery speed Standard Delivery
+      deliveryMethodPage.deliveryTable.contains("Standard Delivery");
+      deliveryMethodPage.deliveryTable.click();
+      // Click Continue button
+      deliveryMethodPage.proceedButton.click();
+      // Create page object - PaymentOptionsPage
+      // Select card that ends with "5678"
+      paymentOptionsPage.paymentOptionsTable.contains("5678").parent().find("input").click();
+      // Click Continue button
+      paymentOptionsPage.proceedButton.click();
+      // Create page object - OrderSummaryPage
+      // Click on "Place your order and pay"
+      orderSummaryPage.proceedButton.click();
+      // Create page object - OrderCompletionPage
+      // Validate confirmation - "Thank you for your purchase!"
+      orderCompeltionPage.orderCompeltionTable.contains("Thank you for your purchase!");
+    });
+    
 
     // Create scenario - Add address
     // Click on Account
